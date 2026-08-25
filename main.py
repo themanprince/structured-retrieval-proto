@@ -227,7 +227,7 @@ def route_query(user_query: str):
     """
 
     response = client.chat.completions.create(
-        model="gemini-2.0-flash",
+        model="gemini-3.6-flash",
         messages=[
             {"role": "system", "content": system_prompt},
             {"role": "user", "content": user_query}
