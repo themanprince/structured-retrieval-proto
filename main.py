@@ -1,7 +1,7 @@
 import json
 from typing import List
 from openai import OpenAI
-from fastapi import FastAPI
+from fastapi import FastAPI, PlainTextResponse
 from dotenv import load_dotenv
 import os
 import uvicorn
@@ -246,14 +246,23 @@ def route_query(user_query: str):
 
         logger.info(f"[Selected Tool]: {func_name}")
         logger.info(f"[Tool Call Arguments]: {json.dumps(arguments, indent=2)}")
+    
+    return response
 
 
 app = FastAPI()
 
-@app.get("/{query}")
+
+@app.get("/", response_class=PlainTextResponse)
+def default():
+    return PlainTextResponse(content="Please ask a question about stock balances, stock movement or other inventory related data")
+
+
+
+@app.get("/{query}", response_class=PlainTextResponse)
 def evaluate_query(query:str = "could i get an idea of how stock has been going in and out for product with id 4"):
-    route_query(query)
-    return {"message": "called route_query() method"}
+    response = route_query(query)
+    return PlainTextResponse(content=response.choices[0].message.content)
 
 
 if __name__ == "__main__":
