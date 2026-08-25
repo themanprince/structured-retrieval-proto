@@ -1,6 +1,10 @@
 import json
 from typing import List
 from openai import OpenAI
+from fastapi import FastAPI
+from python_dotenv import load_dotenv
+import os
+import uvicorn
 from logger import logger
 
 
@@ -232,14 +236,16 @@ def route_query(user_query: str):
         tool_choice="auto" # Allows the model to choose between text or a tool call
     )
 
+    logger.info(f"\n[User Query]: '{user_query}'")
     logger.info(f"got back --> {json.dumps(response.choices[0].message)}")
-    tool_call = response.choices[0].message.tool_calls[0]
-    func_name = tool_call.function.name
-    arguments = json.loads(tool_call.function.arguments)
+    
+    if "tool_calls" in response.choices[0].message:
+        tool_call = response.choices[0].message.tool_calls[0]
+        func_name = tool_call.function.name
+        arguments = json.loads(tool_call.function.arguments)
 
-    log(f"\n[User Query]: '{user_query}'")
-    log(f"[Selected Tool]: {func_name}")
-    log(f"[Tool Call Arguments]: {json.dumps(arguments, indent=2)}")
+        logger.info(f"[Selected Tool]: {func_name}")
+        logger.info(f"[Tool Call Arguments]: {json.dumps(arguments, indent=2)}")
 
 
 app = FastAPI()
