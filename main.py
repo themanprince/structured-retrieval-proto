@@ -1,7 +1,8 @@
 import json
 from typing import List
 from openai import OpenAI
-from fastapi import FastAPI, PlainTextResponse
+from fastapi import FastAPI
+from fastapi.responses import PlainTextResponse
 from dotenv import load_dotenv
 import os
 import uvicorn
