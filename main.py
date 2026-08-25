@@ -2,7 +2,7 @@ import json
 from typing import List
 from openai import OpenAI
 from fastapi import FastAPI
-from python_dotenv import load_dotenv
+from dotenv import load_dotenv
 import os
 import uvicorn
 from logger import logger
@@ -251,7 +251,7 @@ def route_query(user_query: str):
 app = FastAPI()
 
 @app.get("/{query}")
-def evaluate_query(query:str):
+def evaluate_query(query:str = "could i get an idea of how stock has been going in and out for product with id 4"):
     route_query(query)
     return {"message": "called route_query() method"}
 
