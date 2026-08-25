@@ -237,7 +237,7 @@ def route_query(user_query: str):
     )
 
     logger.info(f"\n[User Query]: '{user_query}'")
-    logger.info(f"got back --> {json.dumps(response.choices[0].message)}")
+    logger.info(f"got back --> {response.choices[0].message}")
     
     if "tool_calls" in response.choices[0].message:
         tool_call = response.choices[0].message.tool_calls[0]
