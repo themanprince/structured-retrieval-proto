@@ -2,7 +2,7 @@ import json
 from typing import List
 from openai import OpenAI
 from fastapi import FastAPI
-from python_dotenv import load_dotenv
+from dotenv import load_dotenv
 import os
 import uvicorn
 from logger import logger
