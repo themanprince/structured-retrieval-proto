@@ -1,0 +1,2 @@
+* you can change the parameter tool_choice="auto" to tool_choice="required" if you want the model to by force use a tool in forming responses
+* you should also make the choice explicit using the prompt
