@@ -252,6 +252,13 @@ def route_query(user_query: str):
 
 app = FastAPI()
 
+
+@app.get("/", response_class=PlainTextResponse)
+def default():
+    return PlainTextResponse(content="Please ask a question about stock balances, stock movement or other inventory related data")
+
+
+
 @app.get("/{query}", response_class=PlainTextResponse)
 def evaluate_query(query:str = "could i get an idea of how stock has been going in and out for product with id 4"):
     response = route_query(query)
